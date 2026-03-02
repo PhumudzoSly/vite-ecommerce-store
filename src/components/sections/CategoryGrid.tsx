@@ -1,45 +1,36 @@
+// Matches the exact 4 categories from fakestoreapi.com/products/categories
 const categories = [
   {
     label: 'Electronics',
+    slug: 'electronics',
     emoji: '🎧',
     count: '2,340 items',
     gradient: 'from-blue-50 to-indigo-100 dark:from-blue-950/40 dark:to-indigo-900/40',
     accent: 'text-blue-600 dark:text-blue-400',
   },
   {
-    label: "Women's Fashion",
-    emoji: '👗',
-    count: '1,890 items',
-    gradient: 'from-pink-50 to-rose-100 dark:from-pink-950/40 dark:to-rose-900/40',
-    accent: 'text-pink-600 dark:text-pink-400',
-  },
-  {
-    label: "Men's Fashion",
-    emoji: '👔',
-    count: '1,420 items',
-    gradient: 'from-slate-50 to-zinc-100 dark:from-slate-900/60 dark:to-zinc-800/60',
-    accent: 'text-slate-600 dark:text-slate-400',
-  },
-  {
-    label: 'Jewelry',
+    label: 'Jewellery',
+    slug: 'jewelery',
     emoji: '💍',
     count: '640 items',
     gradient: 'from-amber-50 to-yellow-100 dark:from-amber-950/40 dark:to-yellow-900/40',
     accent: 'text-amber-600 dark:text-amber-400',
   },
   {
-    label: 'Home & Garden',
-    emoji: '🏡',
-    count: '3,100 items',
-    gradient: 'from-green-50 to-emerald-100 dark:from-green-950/40 dark:to-emerald-900/40',
-    accent: 'text-green-600 dark:text-green-400',
+    label: "Men's Clothing",
+    slug: "men's clothing",
+    emoji: '👔',
+    count: '1,420 items',
+    gradient: 'from-slate-50 to-zinc-100 dark:from-slate-900/60 dark:to-zinc-800/60',
+    accent: 'text-slate-600 dark:text-slate-400',
   },
   {
-    label: 'Sports & Outdoors',
-    emoji: '⚽',
-    count: '980 items',
-    gradient: 'from-orange-50 to-red-100 dark:from-orange-950/40 dark:to-red-900/40',
-    accent: 'text-orange-600 dark:text-orange-400',
+    label: "Women's Clothing",
+    slug: "women's clothing",
+    emoji: '👗',
+    count: '1,890 items',
+    gradient: 'from-pink-50 to-rose-100 dark:from-pink-950/40 dark:to-rose-900/40',
+    accent: 'text-pink-600 dark:text-pink-400',
   },
 ]
 
@@ -64,11 +55,11 @@ export function CategoryGrid() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {categories.map(({ label, emoji, count, gradient, accent }) => (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {categories.map(({ label, slug, emoji, count, gradient, accent }) => (
             <a
-              key={label}
-              href={`/categories/${label.toLowerCase().replace(/\W+/g, '-')}`}
+              key={slug}
+              href={`/products?category=${encodeURIComponent(slug)}`}
               className={`group flex flex-col items-center gap-3 rounded-2xl bg-gradient-to-br ${gradient} border border-border/60 p-5 text-center transition-all hover:shadow-md hover:-translate-y-0.5`}
             >
               <span className="text-3xl" role="img" aria-hidden>

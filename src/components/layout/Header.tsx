@@ -1,27 +1,28 @@
-import { useState } from 'react'
-import { ShoppingBag, Search, Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { useState } from "react";
+import { ShoppingBag, Search, Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
-  cartCount?: number
+  cartCount?: number;
+  onOpenCart?: () => void;
 }
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Products', href: '/products' },
-  { label: 'Categories', href: '/categories' },
-  { label: 'Deals', href: '/deals' },
-]
+  { label: "Home", href: "/" },
+  { label: "Products", href: "/products" },
+  { label: "Categories", href: "/categories" },
+  { label: "Deals", href: "/deals" },
+];
 
-export function Header({ cartCount = 0 }: HeaderProps) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [searchFocused, setSearchFocused] = useState(false)
+export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm">
       {/* Top bar */}
       <div className="bg-primary text-primary-foreground text-center py-1.5 text-xs tracking-wide">
-        Free shipping on orders over $50 · Use code{' '}
+        Free shipping on orders over $50 · Use code{" "}
         <span className="font-semibold">WAMLY10</span> for 10% off
       </div>
 
@@ -43,7 +44,10 @@ export function Header({ cartCount = 0 }: HeaderProps) {
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+          <nav
+            className="hidden md:flex items-center gap-6"
+            aria-label="Main navigation"
+          >
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -58,8 +62,8 @@ export function Header({ cartCount = 0 }: HeaderProps) {
           {/* Search bar */}
           <div
             className={cn(
-              'hidden sm:flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1.5 transition-all',
-              searchFocused && 'ring-2 ring-ring border-ring bg-background'
+              "hidden sm:flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1.5 transition-all",
+              searchFocused && "ring-2 ring-ring border-ring bg-background",
             )}
           >
             <Search className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -76,27 +80,31 @@ export function Header({ cartCount = 0 }: HeaderProps) {
           {/* Right actions */}
           <div className="flex items-center gap-2">
             {/* Cart */}
-            <a
-              href="/cart"
-              className="relative flex h-9 w-9 items-center justify-center rounded-full hover:bg-muted transition-colors"
-              aria-label={`Cart, ${cartCount} item${cartCount !== 1 ? 's' : ''}`}
+            <button
+              onClick={onOpenCart}
+              className="relative flex h-9 w-9 items-center justify-center rounded-full hover:bg-muted transition-colors cursor-pointer"
+              aria-label={`Cart, ${cartCount} item${cartCount !== 1 ? "s" : ""}`}
             >
               <ShoppingBag className="h-5 w-5" />
               {cartCount > 0 && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
-                  {cartCount > 99 ? '99+' : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
-            </a>
+            </button>
 
             {/* Mobile menu toggle */}
             <button
               className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-muted transition-colors md:hidden"
               onClick={() => setMenuOpen((o) => !o)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
             >
-              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {menuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>
@@ -130,5 +138,5 @@ export function Header({ cartCount = 0 }: HeaderProps) {
         </div>
       )}
     </header>
-  )
+  );
 }
