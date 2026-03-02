@@ -1,37 +1,11 @@
+import { Cpu, Gem, Shirt } from 'lucide-react'
+
 // Matches the exact 4 categories from fakestoreapi.com/products/categories
 const categories = [
-  {
-    label: 'Electronics',
-    slug: 'electronics',
-    emoji: '🎧',
-    count: '2,340 items',
-    gradient: 'from-blue-50 to-indigo-100 dark:from-blue-950/40 dark:to-indigo-900/40',
-    accent: 'text-blue-600 dark:text-blue-400',
-  },
-  {
-    label: 'Jewellery',
-    slug: 'jewelery',
-    emoji: '💍',
-    count: '640 items',
-    gradient: 'from-amber-50 to-yellow-100 dark:from-amber-950/40 dark:to-yellow-900/40',
-    accent: 'text-amber-600 dark:text-amber-400',
-  },
-  {
-    label: "Men's Clothing",
-    slug: "men's clothing",
-    emoji: '👔',
-    count: '1,420 items',
-    gradient: 'from-slate-50 to-zinc-100 dark:from-slate-900/60 dark:to-zinc-800/60',
-    accent: 'text-slate-600 dark:text-slate-400',
-  },
-  {
-    label: "Women's Clothing",
-    slug: "women's clothing",
-    emoji: '👗',
-    count: '1,890 items',
-    gradient: 'from-pink-50 to-rose-100 dark:from-pink-950/40 dark:to-rose-900/40',
-    accent: 'text-pink-600 dark:text-pink-400',
-  },
+  { label: 'Electronics', slug: 'electronics', icon: Cpu, count: 6 },
+  { label: 'Jewellery', slug: 'jewelery', icon: Gem, count: 4 },
+  { label: "Men's Clothing", slug: "men's clothing", icon: Shirt, count: 4 },
+  { label: "Women's Clothing", slug: "women's clothing", icon: Shirt, count: 6 },
 ]
 
 export function CategoryGrid() {
@@ -41,9 +15,9 @@ export function CategoryGrid() {
         {/* Heading */}
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <p className="text-sm font-medium text-muted-foreground">Browse by</p>
-            <h2 id="categories-heading" className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Shop by Category
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">Browse by</p>
+            <h2 id="categories-heading" className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              Shop by category
             </h2>
           </div>
           <a
@@ -56,18 +30,18 @@ export function CategoryGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {categories.map(({ label, slug, emoji, count, gradient, accent }) => (
+          {categories.map(({ label, slug, icon: Icon, count }) => (
             <a
               key={slug}
               href={`/products?category=${encodeURIComponent(slug)}`}
-              className={`group flex flex-col items-center gap-3 rounded-2xl bg-gradient-to-br ${gradient} border border-border/60 p-5 text-center transition-all hover:shadow-md hover:-translate-y-0.5`}
+              className="group flex flex-col gap-4 rounded-xl border border-border bg-card p-5 hover:bg-muted/50 transition-colors"
             >
-              <span className="text-3xl" role="img" aria-hidden>
-                {emoji}
-              </span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-foreground">
+                <Icon className="h-5 w-5" />
+              </div>
               <div>
-                <p className={`text-sm font-semibold ${accent}`}>{label}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">{count}</p>
+                <p className="text-sm font-semibold text-foreground">{label}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{count} products</p>
               </div>
             </a>
           ))}

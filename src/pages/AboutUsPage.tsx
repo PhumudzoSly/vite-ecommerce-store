@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Users, Globe, Target, Briefcase } from "lucide-react";
 
 export function AboutUsPage() {
@@ -45,12 +46,12 @@ export function AboutUsPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="aspect-square rounded-2xl bg-muted overflow-hidden relative group">
+            <div className="aspect-square rounded-lg bg-muted overflow-hidden relative group">
               <div className="absolute inset-0 flex items-center justify-center p-8 bg-primary/5 group-hover:bg-primary/10 transition-colors">
                 <Globe className="h-12 w-12 text-primary opacity-40" />
               </div>
             </div>
-            <div className="aspect-square rounded-2xl bg-muted overflow-hidden mt-12 relative group">
+            <div className="aspect-square rounded-lg bg-muted overflow-hidden mt-12 relative group">
               <div className="absolute inset-0 flex items-center justify-center p-8 bg-primary/5 group-hover:bg-primary/10 transition-colors">
                 <Users className="h-12 w-12 text-primary opacity-40" />
               </div>
@@ -67,34 +68,38 @@ export function AboutUsPage() {
             These principles guide us every day in building the best store for you.
           </p>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { 
-              icon: Target, 
-              title: "Customer Obsession", 
-              desc: "We start with the customer and work backwards. Your satisfaction is our only metric." 
+            {
+              icon: Target,
+              title: "Customer Obsession",
+              desc: "We start with the customer and work backwards. Your satisfaction is our only metric."
             },
-            { 
-              icon: Briefcase, 
-              title: "Operational Excellence", 
-              desc: "We strive for perfection in shipping, handling, and product quality control." 
+            {
+              icon: Briefcase,
+              title: "Operational Excellence",
+              desc: "We strive for perfection in shipping, handling, and product quality control."
             },
-            { 
-              icon: Globe, 
-              title: "Global Reach", 
-              desc: "Connecting high-quality suppliers with conscious consumers across all borders." 
+            {
+              icon: Globe,
+              title: "Global Reach",
+              desc: "Connecting high-quality suppliers with conscious consumers across all borders."
             }
           ].map((v, i) => (
-            <div key={i} className="p-8 rounded-2xl border bg-card hover:shadow-md transition-shadow">
-              <div className="h-12 w-12 rounded-xl bg-primary/5 flex items-center justify-center text-primary mb-6">
-                <v.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">{v.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {v.desc}
-              </p>
-            </div>
+            <Card key={i} className="hover:shadow-md transition-all">
+              <CardHeader>
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                  <v.icon className="h-6 w-6" />
+                </div>
+                <CardTitle className="text-xl">{v.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  {v.desc}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
