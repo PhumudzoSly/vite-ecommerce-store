@@ -84,9 +84,7 @@ export function Footer() {
         <div className="border-t border-border py-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-semibold text-foreground">
-                Stay in the loop
-              </p>
+              <p className="text-sm font-semibold text-foreground">Stay in the loop</p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Get new products and deals delivered to your inbox.
               </p>

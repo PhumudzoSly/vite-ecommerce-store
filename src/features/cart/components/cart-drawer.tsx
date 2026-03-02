@@ -5,11 +5,10 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingBag } from "lucide-react";
-import { CartItem as CartItemComponent } from "./cart-item";
+import { CartList } from "./cart-list";
 import type { CartItem } from "../types";
 
 interface CartDrawerProps {
@@ -44,29 +43,17 @@ export function CartDrawer({
           </SheetTitle>
         </SheetHeader>
 
-        {items.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-1 text-center px-6">
-            <ShoppingBag className="h-10 w-10 text-muted-foreground mb-4" />
-            <div className="text-xl font-semibold">Your cart is empty</div>
-            <p className="text-muted-foreground">
-              Add some products to your cart to see them here.
-            </p>
-          </div>
-        ) : (
-          <>
-            <ScrollArea className="flex-1 px-6">
-              <div className="flex flex-col">
-                {items.map((item) => (
-                  <CartItemComponent
-                    key={item.id}
-                    item={item}
-                    onUpdateQuantity={onUpdateQuantity}
-                    onRemove={onRemove}
-                  />
-                ))}
-              </div>
-            </ScrollArea>
-            <div className="space-y-4 px-6 py-6">
+        <div className="flex-1 flex flex-col h-full min-h-0">
+          <CartList
+            items={items}
+            onUpdateQuantity={onUpdateQuantity}
+            onRemove={onRemove}
+            className="flex-1 px-6"
+            maxHeight="calc(100vh - 280px)"
+          />
+
+          {items.length > 0 && (
+            <div className="space-y-4 px-6 py-6 mt-auto">
               <Separator />
               <div className="space-y-1.5">
                 <div className="flex justify-between text-base font-semibold">
@@ -83,8 +70,8 @@ export function CartDrawer({
                 </Button>
               </SheetFooter>
             </div>
-          </>
-        )}
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );
