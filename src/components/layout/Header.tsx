@@ -84,23 +84,32 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm">
       {/* Top bar */}
       <div className="bg-primary py-1.5 text-center text-xs tracking-wide text-primary-foreground">
-        Free shipping on orders over $50 - Use code <span className="font-semibold">WAMLY10</span>{" "}
-        for 10% off
+        Free shipping on orders over $50 - Use code{" "}
+        <span className="font-semibold">WAMLY10</span> for 10% off
       </div>
 
       {/* Main header */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <a href="/" className="group flex shrink-0 items-center gap-2" aria-label="Wamly home">
+          <a
+            href="/"
+            className="group flex shrink-0 items-center gap-2"
+            aria-label="Wamly home"
+          >
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-opacity group-hover:opacity-90">
               <ShoppingBag className="h-4 w-4" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-foreground">Wamly</span>
+            <span className="text-xl font-bold tracking-tight text-foreground">
+              Wamly
+            </span>
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-6 md:flex" aria-label="Main navigation">
+          <nav
+            className="hidden items-center gap-6 md:flex"
+            aria-label="Main navigation"
+          >
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -170,7 +179,11 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
               aria-expanded={menuOpen}
               type="button"
             >
-              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {menuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>
