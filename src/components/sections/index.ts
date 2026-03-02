@@ -1,0 +1,7 @@
+export { HeroSection } from './HeroSection'
+export { FeatureStrip } from './FeatureStrip'
+export { CategoryGrid } from './CategoryGrid'
+export { PromoGrid } from './PromoGrid'
+export { CategoryFilterBar } from './CategoryFilterBar'
+export { FAKE_STORE_CATEGORIES } from './CategoryFilterBar'
+export type { FakeStoreCategory } from './CategoryFilterBar'
