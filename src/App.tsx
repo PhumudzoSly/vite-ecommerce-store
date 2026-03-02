@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import { Header, Footer } from "./components/layout";
 import { HomePage } from "./pages/HomePage";
 import { ProductsPage } from "./pages/ProductsPage";
+import { DealsPage } from "./pages/DealsPage";
 import { CartPage } from "./pages/CartPage";
 import { CategoriesPage } from "./pages/CategoriesPage";
 import { AboutUsPage } from "./pages/AboutUsPage";
@@ -39,6 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/deals" element={<DealsPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/cart" element={<CartPage />} />
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/help" element={<HelpCenterPage />} />
             <Route path="/returns" element={<ReturnsPage />} />
+            <Route path="/track" element={<TrackOrderPage />} />
             <Route path="/track-order" element={<TrackOrderPage />} />
           </Routes>
         </main>

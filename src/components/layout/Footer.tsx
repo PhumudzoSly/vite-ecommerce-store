@@ -1,32 +1,32 @@
-import { ShoppingBag, Mail, Twitter, Instagram, Github } from 'lucide-react'
+import { ShoppingBag, Mail, Twitter, Instagram, Github } from "lucide-react";
 
 const footerLinks = {
   Shop: [
-    { label: 'All Products', href: '/products' },
-    { label: 'Categories', href: '/categories' },
-    { label: 'Deals & Offers', href: '/deals' },
-    { label: 'New Arrivals', href: '/new' },
+    { label: "All Products", href: "/products" },
+    { label: "Categories", href: "/categories" },
+    { label: "Deals & Offers", href: "/deals" },
+    { label: "New Arrivals", href: "/new" },
   ],
   Company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Careers', href: '/careers' },
-    { label: 'Press', href: '/press' },
-    { label: 'Blog', href: '/blog' },
+    { label: "About Us", href: "/about" },
+    { label: "Careers", href: "/careers" },
+    { label: "Press", href: "/press" },
+    { label: "Blog", href: "/blog" },
   ],
   Support: [
-    { label: 'Help Center', href: '/help' },
-    { label: 'Returns', href: '/returns' },
-    { label: 'Track Order', href: '/track' },
-    { label: 'Contact Us', href: '/contact' },
+    { label: "Help Center", href: "/help" },
+    { label: "Returns", href: "/returns" },
+    { label: "Track Order", href: "/track" },
+    { label: "Contact Us", href: "/contact" },
   ],
-}
+};
 
 const socialLinks = [
-  { label: 'Twitter', href: '#', icon: Twitter },
-  { label: 'Instagram', href: '#', icon: Instagram },
-  { label: 'GitHub', href: '#', icon: Github },
-  { label: 'Newsletter', href: '#', icon: Mail },
-]
+  { label: "Twitter", href: "#", icon: Twitter },
+  { label: "Instagram", href: "#", icon: Instagram },
+  { label: "GitHub", href: "#", icon: Github },
+  { label: "Newsletter", href: "#", icon: Mail },
+];
 
 export function Footer() {
   return (
@@ -36,14 +36,21 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:gap-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-2 group" aria-label="Wamly home">
+            <a
+              href="/"
+              className="flex items-center gap-2 group"
+              aria-label="Wamly home"
+            >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground group-hover:opacity-90 transition-opacity">
                 <ShoppingBag className="h-4 w-4" />
               </div>
-              <span className="text-xl font-bold tracking-tight text-foreground">Wamly</span>
+              <span className="text-xl font-bold tracking-tight text-foreground">
+                Wamly
+              </span>
             </a>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              Your go-to destination for quality products at great prices. Shop smarter, live better.
+              Your go-to destination for quality products at great prices. Shop
+              smarter, live better.
             </p>
             {/* Social links */}
             <div className="mt-5 flex items-center gap-2">
@@ -63,7 +70,9 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h3 className="text-sm font-semibold text-foreground">{section}</h3>
+              <h3 className="text-sm font-semibold text-foreground">
+                {section}
+              </h3>
               <ul className="mt-3 space-y-2.5">
                 {links.map((link) => (
                   <li key={link.href}>
@@ -84,7 +93,9 @@ export function Footer() {
         <div className="border-t border-border py-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-semibold text-foreground">Stay in the loop</p>
+              <p className="text-sm font-semibold text-foreground">
+                Stay in the loop
+              </p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Get new products and deals delivered to your inbox.
               </p>
@@ -115,18 +126,20 @@ export function Footer() {
             © {new Date().getFullYear()} Wamly. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {item}
-              </a>
-            ))}
+            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item}
+                </a>
+              ),
+            )}
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
