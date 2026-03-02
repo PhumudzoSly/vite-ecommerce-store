@@ -1,4 +1,5 @@
 import { ArrowRight, Zap, Sparkles, TrendingUp } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card"
 
 const promos = [
   {
@@ -69,46 +70,41 @@ function PromoCard({ promo, className = '' }: PromoCardProps) {
 
   if (featured) {
     return (
-      <a
-        href={href}
-        className={`group flex flex-col justify-between overflow-hidden rounded-2xl bg-primary p-8 min-h-64 hover:opacity-95 transition-opacity ${className}`}
-        aria-label={title}
-      >
-        <Icon className="h-8 w-8 text-primary-foreground/60" />
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/60">
-            {eyebrow}
-          </p>
-          <h3 className="mt-1 text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-            {title}
-          </h3>
-          <p className="mt-2 max-w-xs text-sm text-primary-foreground/70">{subtitle}</p>
-          <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground">
-            {cta}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </span>
-        </div>
+      <a href={href} className={`block group ${className}`} aria-label={title}>
+        <Card className="h-full bg-primary text-primary-foreground border-none flex flex-col justify-between overflow-hidden hover:opacity-95 transition-opacity min-h-64">
+          <CardContent className="p-8 flex flex-col justify-between h-full">
+            <Icon className="h-8 w-8 text-primary-foreground/60" />
+            <div className="mt-auto pt-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/60">{eyebrow}</p>
+              <h3 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h3>
+              <p className="mt-2 max-w-xs text-sm text-primary-foreground/70">{subtitle}</p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold">
+                {cta}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </CardContent>
+        </Card>
       </a>
     )
   }
 
   return (
-    <a
-      href={href}
-      className={`group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 min-h-28 hover:bg-muted/40 transition-colors ${className}`}
-      aria-label={title}
-    >
-      <Icon className="h-5 w-5 text-muted-foreground" />
-      <div>
-        <p className="text-xs font-medium text-muted-foreground">{eyebrow}</p>
-        <h3 className="mt-0.5 text-lg font-bold text-foreground">{title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
-        <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-foreground">
-          {cta}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </span>
-      </div>
+    <a href={href} className={`block group ${className}`} aria-label={title}>
+      <Card className="h-full flex flex-col justify-between hover:bg-muted/40 transition-colors min-h-28">
+        <CardContent className="p-6 flex flex-col justify-between h-full">
+          <Icon className="h-5 w-5 text-muted-foreground" />
+          <div className="mt-auto pt-4">
+            <p className="text-xs font-medium text-muted-foreground">{eyebrow}</p>
+            <h3 className="mt-0.5 text-lg font-bold">{title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold">
+              {cta}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </div>
+        </CardContent>
+      </Card>
     </a>
   )
 }
-

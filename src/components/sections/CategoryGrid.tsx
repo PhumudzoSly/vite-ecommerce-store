@@ -1,4 +1,6 @@
 import { Cpu, Gem, Shirt } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 // Matches the exact 4 categories from fakestoreapi.com/products/categories
 const categories = [
@@ -20,41 +22,39 @@ export function CategoryGrid() {
               Shop by category
             </h2>
           </div>
-          <a
-            href="/categories"
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            View all →
-          </a>
+          <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+            <a href="/categories">View all ?</a>
+          </Button>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {categories.map(({ label, slug, icon: Icon, count }) => (
             <a
               key={slug}
               href={`/products?category=${encodeURIComponent(slug)}`}
-              className="group flex flex-col gap-4 rounded-xl border border-border bg-card p-5 hover:bg-muted/50 transition-colors"
+              className="group block"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-foreground">
-                <Icon className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">{label}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">{count} products</p>
-              </div>
+              <Card className="h-full hover:bg-muted/50 transition-colors border-border">
+                <CardContent className="p-5 flex flex-col gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-foreground">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{label}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{count} products</p>
+                  </div>
+                </CardContent>
+              </Card>
             </a>
           ))}
         </div>
 
         {/* Mobile "view all" */}
         <div className="mt-6 text-center sm:hidden">
-          <a
-            href="/categories"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            View all categories →
-          </a>
+          <Button variant="ghost" asChild>
+            <a href="/categories">View all categories ?</a>
+          </Button>
         </div>
       </div>
     </section>
