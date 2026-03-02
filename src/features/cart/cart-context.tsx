@@ -4,7 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useReducer,
   type PropsWithChildren,
 } from "react";
 import type { Product } from "@/features/product";
@@ -25,6 +25,71 @@ interface CartContextValue {
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
+
+type CartAction =
+  | { type: "ADD_ITEM"; product: Product; quantity: number }
+  | { type: "REMOVE_ITEM"; productId: number }
+  | { type: "SET_QUANTITY"; productId: number; quantity: number }
+  | { type: "UPDATE_DELTA"; productId: number; delta: number }
+  | { type: "CLEAR" };
+
+function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
+  switch (action.type) {
+    case "ADD_ITEM": {
+      if (action.quantity <= 0) {
+        return state;
+      }
+
+      const existingItem = state.find((item) => item.id === action.product.id);
+
+      if (!existingItem) {
+        return [...state, { ...action.product, quantity: action.quantity }];
+      }
+
+      return state.map((item) =>
+        item.id === action.product.id
+          ? { ...item, quantity: item.quantity + action.quantity }
+          : item,
+      );
+    }
+
+    case "REMOVE_ITEM":
+      return state.filter((item) => item.id !== action.productId);
+
+    case "SET_QUANTITY":
+      if (action.quantity <= 0) {
+        return state.filter((item) => item.id !== action.productId);
+      }
+
+      return state.map((item) =>
+        item.id === action.productId ? { ...item, quantity: action.quantity } : item,
+      );
+
+    case "UPDATE_DELTA": {
+      const targetItem = state.find((item) => item.id === action.productId);
+
+      if (!targetItem) {
+        return state;
+      }
+
+      const nextQuantity = targetItem.quantity + action.delta;
+
+      if (nextQuantity <= 0) {
+        return state.filter((item) => item.id !== action.productId);
+      }
+
+      return state.map((item) =>
+        item.id === action.productId ? { ...item, quantity: nextQuantity } : item,
+      );
+    }
+
+    case "CLEAR":
+      return [];
+
+    default:
+      return state;
+  }
+}
 
 function loadInitialCartItems(): CartItem[] {
   if (typeof window === "undefined") {
@@ -51,70 +116,33 @@ function loadInitialCartItems(): CartItem[] {
 }
 
 export function CartProvider({ children }: PropsWithChildren) {
-  const [items, setItems] = useState<CartItem[]>(loadInitialCartItems);
+  const [items, dispatch] = useReducer(cartReducer, [], loadInitialCartItems);
 
   useEffect(() => {
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
-    if (quantity <= 0) {
-      return;
-    }
-
-    setItems((currentItems) => {
-      const existingItem = currentItems.find((item) => item.id === product.id);
-
-      if (!existingItem) {
-        return [...currentItems, { ...product, quantity }];
-      }
-
-      return currentItems.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item,
-      );
-    });
+    dispatch({ type: "ADD_ITEM", product, quantity });
   }, []);
 
   const removeItem = useCallback((productId: number) => {
-    setItems((currentItems) => currentItems.filter((item) => item.id !== productId));
+    dispatch({ type: "REMOVE_ITEM", productId });
   }, []);
 
   const updateItemQuantity = useCallback((productId: number, quantity: number) => {
-    if (quantity <= 0) {
-      setItems((currentItems) => currentItems.filter((item) => item.id !== productId));
-      return;
-    }
-
-    setItems((currentItems) =>
-      currentItems.map((item) => (item.id === productId ? { ...item, quantity } : item)),
-    );
+    dispatch({ type: "SET_QUANTITY", productId, quantity });
   }, []);
 
   const updateItemQuantityByDelta = useCallback(
     (productId: number, delta: number) => {
-      setItems((currentItems) => {
-        const targetItem = currentItems.find((item) => item.id === productId);
-
-        if (!targetItem) {
-          return currentItems;
-        }
-
-        const nextQuantity = targetItem.quantity + delta;
-
-        if (nextQuantity <= 0) {
-          return currentItems.filter((item) => item.id !== productId);
-        }
-
-        return currentItems.map((item) =>
-          item.id === productId ? { ...item, quantity: nextQuantity } : item,
-        );
-      });
+      dispatch({ type: "UPDATE_DELTA", productId, delta });
     },
     [],
   );
 
   const clearCart = useCallback(() => {
-    setItems([]);
+    dispatch({ type: "CLEAR" });
   }, []);
 
   const value = useMemo<CartContextValue>(() => {
