@@ -18,6 +18,7 @@ interface CartDrawerProps {
   onUpdateQuantity: (id: number, delta: number) => void;
   onRemove: (id: number) => void;
   onViewCart: () => void;
+  onCheckout: () => void;
   onClearCart: () => void;
 }
 
@@ -28,6 +29,7 @@ export function CartDrawer({
   onUpdateQuantity,
   onRemove,
   onViewCart,
+  onCheckout,
   onClearCart,
 }: CartDrawerProps) {
   const total = items.reduce(
@@ -70,15 +72,18 @@ export function CartDrawer({
                   <span>${total.toFixed(2)}</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Manage quantities in your cart page before checkout goes live.
+                  Ready to finish? Continue to checkout.
                 </p>
               </div>
               <SheetFooter>
+                <div className="grid w-full grid-cols-1 gap-2">
+                  <Button onClick={onCheckout}>Checkout</Button>
+                </div>
                 <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
-                  <Button variant="outline" className="h-11" onClick={onClearCart}>
+                  <Button variant="outline" onClick={onClearCart}>
                     Clear cart
                   </Button>
-                  <Button className="h-11" onClick={onViewCart}>
+                  <Button variant="secondary" onClick={onViewCart}>
                     View cart
                   </Button>
                 </div>

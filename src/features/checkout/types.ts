@@ -12,7 +12,7 @@ export const checkoutSchema = z.object({
     .string()
     .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Invalid expiry (MM/YY)"),
   cvv: z.string().regex(/^\d{3,4}$/, "Invalid CVV"),
-  saveInfo: z.boolean().default(false),
+  saveInfo: z.boolean(),
 });
 
 export type CheckoutFormValues = z.infer<typeof checkoutSchema>;
