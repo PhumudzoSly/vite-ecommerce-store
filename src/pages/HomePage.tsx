@@ -1,7 +1,8 @@
-import { HeroSection } from '../components/sections/HeroSection'
-import { FeatureStrip } from '../components/sections/FeatureStrip'
-import { CategoryGrid } from '../components/sections/CategoryGrid'
-import { PromoGrid } from '../components/sections/PromoGrid'
+import { HeroSection } from "../components/sections/HeroSection";
+import { FeatureStrip } from "../components/sections/FeatureStrip";
+import { CategoryGrid } from "../components/sections/CategoryGrid";
+import { PromoGrid } from "../components/sections/PromoGrid";
+import { FeaturedProductsSection } from "@/features/product";
 
 export function HomePage() {
   return (
@@ -9,6 +10,7 @@ export function HomePage() {
       <HeroSection />
       <FeatureStrip />
       <CategoryGrid />
+      <FeaturedProductsSection />
       <PromoGrid />
     </>
   )
