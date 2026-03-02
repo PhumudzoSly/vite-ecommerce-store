@@ -1,6 +1,6 @@
 import { ArrowRight, Zap, Sparkles, TrendingUp } from 'lucide-react'
-import { Link } from "react-router-dom"
 import { Card, CardContent } from "@/components/ui/card"
+import { AppLink } from "@/components/routing/AppLink"
 
 const promos = [
   {
@@ -71,7 +71,7 @@ function PromoCard({ promo, className = '' }: PromoCardProps) {
 
   if (featured) {
     return (
-      <Link to={href} className={`block group ${className}`} aria-label={title}>
+      <AppLink to={href} className={`block group ${className}`} aria-label={title}>
         <Card className="h-full bg-primary text-primary-foreground border-none flex flex-col justify-between overflow-hidden hover:opacity-95 transition-opacity min-h-64">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <Icon className="h-8 w-8 text-primary-foreground/60" />
@@ -86,12 +86,12 @@ function PromoCard({ promo, className = '' }: PromoCardProps) {
             </div>
           </CardContent>
         </Card>
-      </Link>
+      </AppLink>
     )
   }
 
   return (
-    <Link to={href} className={`block group ${className}`} aria-label={title}>
+    <AppLink to={href} className={`block group ${className}`} aria-label={title}>
       <Card className="h-full flex flex-col justify-between hover:bg-muted/40 transition-colors min-h-28">
         <CardContent className="p-6 flex flex-col justify-between h-full">
           <Icon className="h-5 w-5 text-muted-foreground" />
@@ -106,6 +106,6 @@ function PromoCard({ promo, className = '' }: PromoCardProps) {
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </AppLink>
   )
 }

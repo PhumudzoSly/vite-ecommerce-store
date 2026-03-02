@@ -1,10 +1,10 @@
 import { ArrowLeft, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CartList } from "@/features/cart/components/cart-list";
 import { useCart } from "@/features/cart";
+import { AppLink } from "@/components/routing/AppLink";
 
 export function CartPage() {
   const {
@@ -47,10 +47,10 @@ export function CartPage() {
               Add products from the catalog to start building your order.
             </p>
             <Button className="mt-6" asChild>
-              <Link to="/products">
+              <AppLink to="/products">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Continue shopping
-              </Link>
+              </AppLink>
             </Button>
           </CardContent>
         </Card>
@@ -89,10 +89,10 @@ export function CartPage() {
               </p>
               <div className="space-y-2">
                 <Button className="w-full" asChild>
-                  <Link to="/checkout">Proceed to checkout</Link>
+                  <AppLink to="/checkout">Proceed to checkout</AppLink>
                 </Button>
                 <Button className="w-full" variant="outline" asChild>
-                  <Link to="/products">Add more products</Link>
+                  <AppLink to="/products">Add more products</AppLink>
                 </Button>
               </div>
             </CardContent>

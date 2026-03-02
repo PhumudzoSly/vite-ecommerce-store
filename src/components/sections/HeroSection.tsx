@@ -1,8 +1,8 @@
 import { ArrowRight, Star } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CardContent } from "@/components/ui/card";
+import { AppLink } from "@/components/routing/AppLink";
 
 const stats = [
   { value: "10K+", label: "Products" },
@@ -40,13 +40,13 @@ export function HeroSection() {
 
             <div className="flex flex-wrap gap-3">
               <Button size="lg" asChild>
-                <Link to="/products">
+                <AppLink to="/products">
                   Shop now
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </AppLink>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link to="/categories">Browse categories</Link>
+                <AppLink to="/categories">Browse categories</AppLink>
               </Button>
             </div>
 
@@ -66,7 +66,7 @@ export function HeroSection() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {categoryPreview.map(({ label, emoji }) => (
-                  <Link
+                  <AppLink
                     key={label}
                     to="/categories"
                     className="flex items-center justify-center gap-3 rounded-xl border border-border bg-background px-4 py-5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
@@ -75,7 +75,7 @@ export function HeroSection() {
                       {emoji}
                     </span>
                     {label}
-                  </Link>
+                  </AppLink>
                 ))}
               </div>
               <div className="flex items-center justify-between rounded-xl border border-border bg-background px-4 py-3">

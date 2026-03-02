@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/features/cart";
@@ -8,6 +7,7 @@ import { useFeaturedProducts } from "../hooks";
 import { ProductDetailsDialog } from "./product-details-dialog";
 import { ProductGrid } from "./product-grid";
 import type { Product } from "../types";
+import { AppLink } from "@/components/routing/AppLink";
 
 export function FeaturedProductsSection() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -28,10 +28,10 @@ export function FeaturedProductsSection() {
           </div>
 
           <Button variant="outline" asChild>
-            <Link to="/products">
+            <AppLink to="/products">
               Browse all products
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            </AppLink>
           </Button>
         </div>
 

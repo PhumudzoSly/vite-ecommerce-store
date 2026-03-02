@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, ArrowLeft, CheckCircle2, User } from "lucide-react";
-import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,6 +26,7 @@ import {
   type CheckoutFormValues,
   type ReceiptData,
 } from "@/features/checkout";
+import { AppLink } from "@/components/routing/AppLink";
 
 export function CheckoutPage() {
   const { items, clearCart } = useCart();
@@ -194,7 +194,7 @@ export function CheckoutPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Button asChild>
-                <Link to="/products">Continue shopping</Link>
+                <AppLink to="/products">Continue shopping</AppLink>
               </Button>
               <Button
                 variant="outline"
@@ -235,10 +235,10 @@ export function CheckoutPage() {
             </p>
             <div className="mt-6 flex gap-3">
               <Button variant="outline" asChild>
-                <Link to="/cart">Back to cart</Link>
+                <AppLink to="/cart">Back to cart</AppLink>
               </Button>
               <Button asChild>
-                <Link to="/products">Browse products</Link>
+                <AppLink to="/products">Browse products</AppLink>
               </Button>
             </div>
           </CardContent>
@@ -257,10 +257,10 @@ export function CheckoutPage() {
           </p>
         </div>
         <Button variant="outline" asChild>
-          <Link to="/cart">
+          <AppLink to="/cart">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to cart
-          </Link>
+          </AppLink>
         </Button>
       </header>
 

@@ -1,6 +1,5 @@
 import { ArrowRight, Cpu, Gem, Shirt } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -8,6 +7,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { AppLink } from "@/components/routing/AppLink";
 
 const categories: {
   slug: string;
@@ -58,9 +58,9 @@ export function CategoriesPage() {
             aria-label="Breadcrumb"
             className="mb-4 flex items-center gap-1.5 text-xs text-muted-foreground"
           >
-            <Link to="/" className="hover:text-foreground transition-colors">
+            <AppLink to="/" className="hover:text-foreground transition-colors">
               Home
-            </Link>
+            </AppLink>
             <span>/</span>
             <span className="text-foreground">Categories</span>
           </nav>
@@ -75,9 +75,9 @@ export function CategoriesPage() {
               </p>
             </div>
             <Button variant="outline" asChild>
-              <Link to="/products">
+              <AppLink to="/products">
                 View all products <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </AppLink>
             </Button>
           </div>
         </div>
@@ -89,7 +89,7 @@ export function CategoriesPage() {
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
-              <Link
+              <AppLink
                 key={cat.slug}
                 to={`/products?category=${encodeURIComponent(cat.slug)}`}
                 className="block group"
@@ -116,7 +116,7 @@ export function CategoriesPage() {
                     </div>
                   </CardHeader>
                 </Card>
-              </Link>
+              </AppLink>
             );
           })}
         </div>

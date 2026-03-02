@@ -1,7 +1,7 @@
 import { Cpu, Gem, Shirt } from 'lucide-react'
-import { Link } from "react-router-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { AppLink } from "@/components/routing/AppLink"
 
 // Matches the exact 4 categories from fakestoreapi.com/products/categories
 const categories = [
@@ -24,14 +24,14 @@ export function CategoryGrid() {
             </h2>
           </div>
           <Button variant="ghost" className="hidden sm:inline-flex" asChild>
-            <Link to="/categories">View all ?</Link>
+            <AppLink to="/categories">View all ?</AppLink>
           </Button>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {categories.map(({ label, slug, icon: Icon, count }) => (
-            <Link
+            <AppLink
               key={slug}
               to={`/products?category=${encodeURIComponent(slug)}`}
               className="group block"
@@ -47,14 +47,14 @@ export function CategoryGrid() {
                   </div>
                 </CardContent>
               </Card>
-            </Link>
+            </AppLink>
           ))}
         </div>
 
         {/* Mobile "view all" */}
         <div className="mt-6 text-center sm:hidden">
           <Button variant="ghost" asChild>
-            <Link to="/categories">View all categories ?</Link>
+            <AppLink to="/categories">View all categories ?</AppLink>
           </Button>
         </div>
       </div>

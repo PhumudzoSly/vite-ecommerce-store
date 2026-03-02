@@ -1,5 +1,5 @@
 import { ShoppingBag, Mail, Twitter, Instagram, Github } from "lucide-react";
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/routing/AppLink";
 
 const footerLinks = {
   Shop: [
@@ -37,7 +37,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:gap-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link
+            <AppLink
               to="/"
               className="flex items-center gap-2 group"
               aria-label="Wamly home"
@@ -48,7 +48,7 @@ export function Footer() {
               <span className="text-xl font-bold tracking-tight text-foreground">
                 Wamly
               </span>
-            </Link>
+            </AppLink>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               Your go-to destination for quality products at great prices. Shop
               smarter, live better.
@@ -77,12 +77,12 @@ export function Footer() {
               <ul className="mt-3 space-y-2.5">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link
+                    <AppLink
                       to={link.href}
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.label}
-                    </Link>
+                    </AppLink>
                   </li>
                 ))}
               </ul>
