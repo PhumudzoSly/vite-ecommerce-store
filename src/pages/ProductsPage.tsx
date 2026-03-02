@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -68,14 +69,19 @@ export function ProductsPage() {
     defaultValue: string,
   ) => {
     const nextParams = new URLSearchParams(searchParams);
-    // Clear search query when the user changes a filter
-    nextParams.delete("search");
     if (value === defaultValue) {
       nextParams.delete(key);
     } else {
       nextParams.set(key, value);
     }
     setSearchParams(nextParams, { replace: true });
+  };
+
+  const hasActiveFilters =
+    Boolean(searchQuery) || selectedCategory !== "all" || selectedSort !== "featured";
+
+  const clearFilters = () => {
+    setSearchParams(new URLSearchParams(), { replace: true });
   };
 
   return (
@@ -143,6 +149,12 @@ export function ProductsPage() {
               ))}
             </SelectContent>
           </Select>
+
+          {hasActiveFilters && (
+            <Button type="button" variant="outline" onClick={clearFilters}>
+              Clear filters
+            </Button>
+          )}
         </div>
       </header>
 
