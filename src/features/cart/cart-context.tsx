@@ -70,9 +70,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       }
 
       return currentItems.map((item) =>
-        item.id === product.id
-          ? { ...item, ...product, quantity: item.quantity + quantity }
-          : item,
+        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item,
       );
     });
   }, []);
