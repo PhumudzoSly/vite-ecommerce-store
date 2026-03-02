@@ -39,7 +39,9 @@ export function ProductGrid({
     return (
       <div className="flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed border-destructive/40 px-6 py-10 text-center">
         <AlertCircle className="mb-3 h-6 w-6 text-destructive" />
-        <p className="text-sm font-medium text-foreground">Could not load products</p>
+        <p className="text-sm font-medium text-foreground">
+          Could not load products
+        </p>
         <p className="mt-1 text-sm text-muted-foreground">
           {errorMessage ?? "Please try again in a moment."}
         </p>
@@ -50,8 +52,12 @@ export function ProductGrid({
   if (!products?.length) {
     return (
       <div className="flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed border-border px-6 py-10 text-center">
-        <p className="text-sm font-medium text-foreground">No products match this filter</p>
-        <p className="mt-1 text-sm text-muted-foreground">Try a different category or sort option.</p>
+        <p className="text-sm font-medium text-foreground">
+          No products match this filter
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Try a different category or sort option.
+        </p>
       </div>
     );
   }
