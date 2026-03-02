@@ -20,6 +20,7 @@ import {
   type DealProduct,
   type DealSort,
 } from "@/features/product";
+import { useCart } from "@/features/cart";
 
 const SORT_OPTIONS: Array<{ label: string; value: DealSort }> = [
   { label: "Biggest discount", value: "discount-desc" },
@@ -34,6 +35,7 @@ function isDealSort(value: string | null): value is DealSort {
 export function DealsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedDeal, setSelectedDeal] = useState<DealProduct | null>(null);
+  const { addItem } = useCart();
 
   const selectedCategory = searchParams.get("category") ?? "all";
   const selectedSort = isDealSort(searchParams.get("sort"))
@@ -50,6 +52,11 @@ export function DealsPage() {
   );
 
   const bestDiscount = sortedDeals[0]?.discountPercent ?? 0;
+
+  const addDealToCart = (deal: DealProduct) => {
+    addItem({ ...deal, price: deal.dealPrice });
+    toast.success(`${deal.title} added at $${deal.dealPrice.toFixed(2)}`);
+  };
 
   const updateQueryParam = (key: "category" | "sort", value: string, defaultValue: string) => {
     const nextParams = new URLSearchParams(searchParams);
@@ -150,9 +157,7 @@ export function DealsPage() {
               key={deal.id}
               product={deal}
               onViewDetails={setSelectedDeal}
-              onAddToCart={(product) => {
-                toast.success(`${product.title} added at $${product.dealPrice.toFixed(2)}`);
-              }}
+              onAddToCart={addDealToCart}
             />
           ))}
         </div>
@@ -163,6 +168,7 @@ export function DealsPage() {
         isOpen={Boolean(selectedDeal)}
         onClose={() => setSelectedDeal(null)}
         onAddToCart={(product) => {
+          addItem(product);
           toast.success(`${product.title} added to cart`);
         }}
       />

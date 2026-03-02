@@ -18,6 +18,7 @@ import {
   type Product,
   type ProductSort,
 } from "@/features/product";
+import { useCart } from "@/features/cart";
 
 const SORT_OPTIONS: Array<{ label: string; value: ProductSort }> = [
   { label: "Featured", value: "featured" },
@@ -33,6 +34,7 @@ function isProductSort(value: string | null): value is ProductSort {
 export function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addItem } = useCart();
 
   const selectedCategory = searchParams.get("category") ?? "all";
   const selectedSort = isProductSort(searchParams.get("sort"))
@@ -116,6 +118,7 @@ export function ProductsPage() {
         }
         onViewDetails={setSelectedProduct}
         onAddToCart={(product) => {
+          addItem(product);
           toast.success(`${product.title} added to cart`);
         }}
       />
@@ -125,6 +128,7 @@ export function ProductsPage() {
         isOpen={Boolean(selectedProduct)}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={(product) => {
+          addItem(product);
           toast.success(`${product.title} added to cart`);
         }}
       />

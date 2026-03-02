@@ -17,7 +17,8 @@ interface CartDrawerProps {
   onClose: () => void;
   onUpdateQuantity: (id: number, delta: number) => void;
   onRemove: (id: number) => void;
-  onCheckout: () => void;
+  onViewCart: () => void;
+  onClearCart: () => void;
 }
 
 export function CartDrawer({
@@ -26,7 +27,8 @@ export function CartDrawer({
   onClose,
   onUpdateQuantity,
   onRemove,
-  onCheckout,
+  onViewCart,
+  onClearCart,
 }: CartDrawerProps) {
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -34,7 +36,14 @@ export function CartDrawer({
   );
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
+    <Sheet
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          onClose();
+        }
+      }}
+    >
       <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
         <SheetHeader className="px-6">
           <SheetTitle className="flex items-center gap-2">
@@ -61,13 +70,18 @@ export function CartDrawer({
                   <span>${total.toFixed(2)}</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Shipping and taxes calculated at checkout.
+                  Manage quantities in your cart page before checkout goes live.
                 </p>
               </div>
               <SheetFooter>
-                <Button className="w-full h-12 text-lg" onClick={onCheckout}>
-                  Checkout
-                </Button>
+                <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
+                  <Button variant="outline" className="h-11" onClick={onClearCart}>
+                    Clear cart
+                  </Button>
+                  <Button className="h-11" onClick={onViewCart}>
+                    View cart
+                  </Button>
+                </div>
               </SheetFooter>
             </div>
           )}
