@@ -1,5 +1,5 @@
-import { ProductCard } from "./product-card";
-import type { Product } from "../types";
+import { ProductCard } from "@/features/product/components/product-card";
+import type { Product } from "@/features/product/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductListProps {

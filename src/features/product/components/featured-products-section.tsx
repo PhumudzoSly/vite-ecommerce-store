@@ -19,7 +19,7 @@ export function FeaturedProductsSection() {
         <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Live from Fake Store API
+              What's selling the most.
             </p>
             <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
               Featured products

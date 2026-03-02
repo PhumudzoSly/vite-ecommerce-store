@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,12 +17,16 @@ import { checkoutSchema, type CheckoutFormValues } from "../types";
 interface CheckoutFormProps {
   onSubmit: (values: CheckoutFormValues) => void;
   isSubmitting?: boolean;
+  defaultValues?: Partial<CheckoutFormValues>;
 }
 
-export function CheckoutForm({ onSubmit, isSubmitting }: CheckoutFormProps) {
-  const form = useForm<CheckoutFormValues>({
-    resolver: zodResolver(checkoutSchema),
-    defaultValues: {
+export function CheckoutForm({
+  onSubmit,
+  isSubmitting,
+  defaultValues,
+}: CheckoutFormProps) {
+  const formDefaults = useMemo<CheckoutFormValues>(
+    () => ({
       firstName: "",
       lastName: "",
       email: "",
@@ -32,8 +37,19 @@ export function CheckoutForm({ onSubmit, isSubmitting }: CheckoutFormProps) {
       expiryDate: "",
       cvv: "",
       saveInfo: false,
-    },
+      ...defaultValues,
+    }),
+    [defaultValues],
+  );
+
+  const form = useForm<CheckoutFormValues>({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: formDefaults,
   });
+
+  useEffect(() => {
+    form.reset(formDefaults);
+  }, [form, formDefaults]);
 
   return (
     <Form {...form}>
@@ -177,7 +193,7 @@ export function CheckoutForm({ onSubmit, isSubmitting }: CheckoutFormProps) {
               <FormControl>
                 <Checkbox
                   checked={field.value}
-                  onCheckedChange={field.onChange}
+                  onCheckedChange={(checked) => field.onChange(checked === true)}
                 />
               </FormControl>
               <div className="space-y-1 leading-none">

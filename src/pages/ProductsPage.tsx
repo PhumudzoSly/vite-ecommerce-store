@@ -40,6 +40,8 @@ export function ProductsPage() {
   const selectedSort = isProductSort(searchParams.get("sort"))
     ? (searchParams.get("sort") as ProductSort)
     : "featured";
+  const rawSearchQuery = searchParams.get("search")?.trim() ?? "";
+  const searchQuery = rawSearchQuery.toLowerCase();
   const apiCategory = selectedCategory === "all" ? undefined : selectedCategory;
 
   const categoriesQuery = useProductCategories();
@@ -50,15 +52,29 @@ export function ProductsPage() {
     [productsQuery.data, selectedSort],
   );
 
-  const updateQueryParam = (key: "category" | "sort", value: string, defaultValue: string) => {
-    const nextParams = new URLSearchParams(searchParams);
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery) return sortedProducts;
+    return sortedProducts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(searchQuery) ||
+        p.category.toLowerCase().includes(searchQuery) ||
+        p.description.toLowerCase().includes(searchQuery),
+    );
+  }, [sortedProducts, searchQuery]);
 
+  const updateQueryParam = (
+    key: "category" | "sort",
+    value: string,
+    defaultValue: string,
+  ) => {
+    const nextParams = new URLSearchParams(searchParams);
+    // Clear search query when the user changes a filter
+    nextParams.delete("search");
     if (value === defaultValue) {
       nextParams.delete(key);
     } else {
       nextParams.set(key, value);
     }
-
     setSearchParams(nextParams, { replace: true });
   };
 
@@ -66,17 +82,36 @@ export function ProductsPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 space-y-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Products</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            Products
+          </h1>
           <p className="mt-2 text-muted-foreground">
-            Browse live inventory from Fake Store API.{" "}
-            {productsQuery.data?.length ?? 0} products available.
+            {searchQuery ? (
+              <>
+                Showing{" "}
+                <span className="font-medium text-foreground">
+                  {filteredProducts.length}
+                </span>{" "}
+                result{filteredProducts.length !== 1 ? "s" : ""} for{" "}
+                <span className="font-medium text-foreground">
+                  &ldquo;{rawSearchQuery}&rdquo;
+                </span>
+              </>
+            ) : (
+              <>
+                View our inventory. {productsQuery.data?.length ?? 0} products
+                available.
+              </>
+            )}
           </p>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row">
           <Select
             value={selectedCategory}
-            onValueChange={(value) => updateQueryParam("category", value, "all")}
+            onValueChange={(value) =>
+              updateQueryParam("category", value, "all")
+            }
           >
             <SelectTrigger className="w-full sm:w-72">
               <SelectValue placeholder="All categories" />
@@ -93,7 +128,9 @@ export function ProductsPage() {
 
           <Select
             value={selectedSort}
-            onValueChange={(value) => updateQueryParam("sort", value, "featured")}
+            onValueChange={(value) =>
+              updateQueryParam("sort", value, "featured")
+            }
           >
             <SelectTrigger className="w-full sm:w-64">
               <SelectValue placeholder="Sort products" />
@@ -110,11 +147,13 @@ export function ProductsPage() {
       </header>
 
       <ProductGrid
-        products={sortedProducts}
+        products={filteredProducts}
         isLoading={productsQuery.isLoading}
         isError={productsQuery.isError}
         errorMessage={
-          productsQuery.error instanceof Error ? productsQuery.error.message : undefined
+          productsQuery.error instanceof Error
+            ? productsQuery.error.message
+            : undefined
         }
         onViewDetails={setSelectedProduct}
         onAddToCart={(product) => {

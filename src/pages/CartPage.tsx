@@ -7,15 +7,25 @@ import { CartList } from "@/features/cart/components/cart-list";
 import { useCart } from "@/features/cart";
 
 export function CartPage() {
-  const { items, totalItems, subtotal, clearCart, removeItem, updateItemQuantityByDelta } = useCart();
+  const {
+    items,
+    totalItems,
+    subtotal,
+    clearCart,
+    removeItem,
+    updateItemQuantityByDelta,
+  } = useCart();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Your cart</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            Your cart
+          </h1>
           <p className="mt-2 text-muted-foreground">
-            {totalItems} item{totalItems === 1 ? "" : "s"} currently in your cart.
+            {totalItems} item{totalItems === 1 ? "" : "s"} currently in your
+            cart.
           </p>
         </div>
 
@@ -30,7 +40,9 @@ export function CartPage() {
         <Card className="border-dashed">
           <CardContent className="flex min-h-72 flex-col items-center justify-center text-center">
             <ShoppingBag className="mb-4 h-10 w-10 text-muted-foreground" />
-            <p className="text-lg font-semibold text-foreground">Your cart is empty</p>
+            <p className="text-lg font-semibold text-foreground">
+              Your cart is empty
+            </p>
             <p className="mt-1 text-sm text-muted-foreground">
               Add products from the catalog to start building your order.
             </p>
@@ -73,11 +85,16 @@ export function CartPage() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                Checkout is intentionally excluded from this branch.
+                Shipping and final tax are calculated during checkout.
               </p>
-              <Button className="w-full" variant="outline" asChild>
-                <Link to="/products">Add more products</Link>
-              </Button>
+              <div className="space-y-2">
+                <Button className="w-full" asChild>
+                  <Link to="/checkout">Proceed to checkout</Link>
+                </Button>
+                <Button className="w-full" variant="outline" asChild>
+                  <Link to="/products">Add more products</Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>

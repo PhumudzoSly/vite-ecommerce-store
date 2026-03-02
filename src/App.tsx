@@ -5,6 +5,7 @@ import { HomePage } from "./pages/HomePage";
 import { ProductsPage } from "./pages/ProductsPage";
 import { DealsPage } from "./pages/DealsPage";
 import { CartPage } from "./pages/CartPage";
+import { CheckoutPage } from "./pages/CheckoutPage";
 import { CategoriesPage } from "./pages/CategoriesPage";
 import { AboutUsPage } from "./pages/AboutUsPage";
 import { ContactUsPage } from "./pages/ContactUsPage";
@@ -28,6 +29,11 @@ function AppShell() {
     navigate("/cart");
   };
 
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    navigate("/checkout");
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans antialiased">
       <Header onOpenCart={() => setIsCartOpen(true)} cartCount={totalItems} />
@@ -38,6 +44,7 @@ function AppShell() {
           <Route path="/deals" element={<DealsPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
 
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/careers" element={<CareersPage />} />
@@ -59,6 +66,7 @@ function AppShell() {
         onUpdateQuantity={updateItemQuantityByDelta}
         onRemove={removeItem}
         onViewCart={handleViewCart}
+        onCheckout={handleCheckout}
         onClearCart={clearCart}
       />
       <Toaster position="top-center" />
