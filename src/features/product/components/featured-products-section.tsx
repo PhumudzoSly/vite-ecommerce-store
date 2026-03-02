@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/features/cart";
@@ -27,10 +28,10 @@ export function FeaturedProductsSection() {
           </div>
 
           <Button variant="outline" asChild>
-            <a href="/products">
+            <Link to="/products">
               Browse all products
               <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </div>
 

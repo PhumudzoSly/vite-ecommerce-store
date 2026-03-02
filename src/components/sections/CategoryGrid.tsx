@@ -1,4 +1,5 @@
 import { Cpu, Gem, Shirt } from 'lucide-react'
+import { Link } from "react-router-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -23,16 +24,16 @@ export function CategoryGrid() {
             </h2>
           </div>
           <Button variant="ghost" className="hidden sm:inline-flex" asChild>
-            <a href="/categories">View all ?</a>
+            <Link to="/categories">View all ?</Link>
           </Button>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {categories.map(({ label, slug, icon: Icon, count }) => (
-            <a
+            <Link
               key={slug}
-              href={`/products?category=${encodeURIComponent(slug)}`}
+              to={`/products?category=${encodeURIComponent(slug)}`}
               className="group block"
             >
               <Card className="h-full hover:bg-muted/50 transition-colors border-border">
@@ -46,14 +47,14 @@ export function CategoryGrid() {
                   </div>
                 </CardContent>
               </Card>
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* Mobile "view all" */}
         <div className="mt-6 text-center sm:hidden">
           <Button variant="ghost" asChild>
-            <a href="/categories">View all categories ?</a>
+            <Link to="/categories">View all categories ?</Link>
           </Button>
         </div>
       </div>

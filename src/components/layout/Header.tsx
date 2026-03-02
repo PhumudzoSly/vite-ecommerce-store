@@ -1,6 +1,6 @@
 import { useEffect, useState, type KeyboardEvent } from "react";
 import { ShoppingBag, Search, Menu, X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -9,10 +9,10 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "Categories", href: "/categories" },
-  { label: "Deals", href: "/deals" },
+  { label: "Home", to: "/" },
+  { label: "Products", to: "/products" },
+  { label: "Categories", to: "/categories" },
+  { label: "Deals", to: "/deals" },
 ];
 
 export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
@@ -92,8 +92,8 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <a
-            href="/"
+          <Link
+            to="/"
             className="group flex shrink-0 items-center gap-2"
             aria-label="Wamly home"
           >
@@ -103,7 +103,7 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
             <span className="text-xl font-bold tracking-tight text-foreground">
               Wamly
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav
@@ -111,13 +111,13 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
             aria-label="Main navigation"
           >
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.to}
+                to={link.to}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -221,14 +221,14 @@ export function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
             </div>
 
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.to}
+                to={link.to}
                 className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
