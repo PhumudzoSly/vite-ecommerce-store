@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/features/cart";
 import { useFeaturedProducts } from "../hooks";
 import { ProductDetailsDialog } from "./product-details-dialog";
 import { ProductGrid } from "./product-grid";
@@ -9,6 +10,7 @@ import type { Product } from "../types";
 
 export function FeaturedProductsSection() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addItem } = useCart();
   const { data, isLoading, isError, error } = useFeaturedProducts(8);
 
   return (
@@ -39,6 +41,7 @@ export function FeaturedProductsSection() {
           errorMessage={error instanceof Error ? error.message : undefined}
           onViewDetails={setSelectedProduct}
           onAddToCart={(product) => {
+            addItem(product);
             toast.success(`${product.title} added to cart`);
           }}
         />
@@ -49,6 +52,7 @@ export function FeaturedProductsSection() {
         isOpen={Boolean(selectedProduct)}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={(product) => {
+          addItem(product);
           toast.success(`${product.title} added to cart`);
         }}
       />
