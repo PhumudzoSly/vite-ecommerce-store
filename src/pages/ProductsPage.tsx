@@ -78,7 +78,9 @@ export function ProductsPage() {
   };
 
   const hasActiveFilters =
-    Boolean(searchQuery) || selectedCategory !== "all" || selectedSort !== "featured";
+    Boolean(searchQuery) ||
+    selectedCategory !== "all" ||
+    selectedSort !== "featured";
 
   const clearFilters = () => {
     setSearchParams(new URLSearchParams(), { replace: true });
@@ -178,8 +180,8 @@ export function ProductsPage() {
         product={selectedProduct}
         isOpen={Boolean(selectedProduct)}
         onClose={() => setSelectedProduct(null)}
-        onAddToCart={(product) => {
-          addItem(product);
+        onAddToCart={(product, quantity) => {
+          addItem(product, quantity);
           toast.success(`${product.title} added to cart`);
         }}
       />

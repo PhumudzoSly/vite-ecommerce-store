@@ -195,8 +195,8 @@ export function DealsPage() {
         }
         isOpen={Boolean(selectedDeal)}
         onClose={() => setSelectedDeal(null)}
-        onAddToCart={(product) => {
-          addItem(product);
+        onAddToCart={(product, quantity) => {
+          addItem(product, quantity);
           toast.success(`${product.title} added to cart`);
         }}
       />
